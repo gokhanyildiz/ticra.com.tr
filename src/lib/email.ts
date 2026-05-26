@@ -152,7 +152,10 @@ export async function sendEmail(input: SendEmailInput) {
   });
 
   if (!response.ok) {
-    throw new Error(`Gmail API send failed: ${response.status}`);
+    const errorBody = await response.text().catch(() => '');
+    const detail = errorBody ? ` ${errorBody.slice(0, 500)}` : '';
+
+    throw new Error(`Gmail API send failed: ${response.status}${detail}`);
   }
 
   return response.json().catch(() => ({}));

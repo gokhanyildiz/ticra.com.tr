@@ -86,10 +86,11 @@ export async function POST(request: Request) {
   }
 
   const email = buildLeadRequestEmail(input);
+  const recipient = getLeadRecipient(input.type);
 
   try {
     await sendEmail({
-      to: getLeadRecipient(input.type),
+      to: recipient,
       subject: email.subject,
       html: email.html,
       text: email.text,
@@ -101,7 +102,14 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Lead request email delivery failed', {
+      type: input.type,
+      recipient,
+      error: error instanceof Error ? error.message : String(error),
+    });
+
     return NextResponse.json(
       { ok: false, error: 'email_delivery_failed' },
       { status: 502 },

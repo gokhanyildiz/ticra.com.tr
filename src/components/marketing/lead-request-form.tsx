@@ -185,6 +185,7 @@ export function LeadRequestForm({
   const [startedAt] = useState(() => Date.now());
   const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+  const isTurnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
   const normalizedSelectedPackageCode = selectedPackageCode
     ? selectedPackageCode.toUpperCase()
     : '';
@@ -224,6 +225,12 @@ export function LeadRequestForm({
       setTurnstileResetSignal((current) => current + 1);
     };
 
+    if (isTurnstileEnabled && !turnstileToken) {
+      resetTurnstile();
+      setState('error');
+      return;
+    }
+
     try {
       await submitPayload(payload);
       form.reset();
@@ -236,6 +243,8 @@ export function LeadRequestForm({
   }
 
   const isSubmitting = state === 'submitting';
+  const isSubmitDisabled =
+    isSubmitting || (isTurnstileEnabled && !turnstileToken);
 
   return (
     <form
@@ -401,7 +410,7 @@ export function LeadRequestForm({
       <div className="flex flex-col gap-3">
         <Button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitDisabled}
           className="bg-foreground text-primary-foreground hover:bg-foreground/90 mt-2 h-12 w-full rounded-[8px]"
         >
           {isSubmitting ? (
@@ -425,6 +434,7 @@ export function ContactRequestForm({ locale, copy }: ContactRequestFormProps) {
   const [startedAt] = useState(() => Date.now());
   const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
+  const isTurnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -452,6 +462,12 @@ export function ContactRequestForm({ locale, copy }: ContactRequestFormProps) {
       setTurnstileResetSignal((current) => current + 1);
     };
 
+    if (isTurnstileEnabled && !turnstileToken) {
+      resetTurnstile();
+      setState('error');
+      return;
+    }
+
     try {
       await submitPayload(payload);
       form.reset();
@@ -464,6 +480,8 @@ export function ContactRequestForm({ locale, copy }: ContactRequestFormProps) {
   }
 
   const isSubmitting = state === 'submitting';
+  const isSubmitDisabled =
+    isSubmitting || (isTurnstileEnabled && !turnstileToken);
 
   return (
     <form
@@ -568,7 +586,7 @@ export function ContactRequestForm({ locale, copy }: ContactRequestFormProps) {
       <div className="flex flex-col gap-3">
         <Button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitDisabled}
           className="bg-foreground text-primary-foreground hover:bg-foreground/90 mt-2 h-12 w-full rounded-[8px]"
         >
           {isSubmitting ? (
