@@ -65,7 +65,7 @@ export default function Navbar({ locale, nav }: NavbarProps) {
           />
         </Link>
 
-        <nav className="gap-8hea mt-2 hidden h-full items-center justify-center lg:flex">
+        <nav className="mt-2 hidden h-full items-center justify-center gap-8 lg:flex">
           {nav.items.map((item) => {
             const href = localizePath(item.href, locale);
             const isActive = activePath === item.href;
