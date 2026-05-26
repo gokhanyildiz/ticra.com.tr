@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ticraTop" x1="24" y1="24" x2="232" y2="216" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F7EF7"/>
+      <stop offset="60%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="ticraMain" x1="24" y1="24" x2="232" y2="216" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F7EF7"/>
+      <stop offset="55%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="ticraAccent" x1="152" y1="160" x2="208" y2="216" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="256" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect x="16" y="16" width="224" height="224" rx="52" fill="#FAFAFA"/>
+    <rect x="16.5" y="16.5" width="223" height="223" rx="51.5" stroke="#E4E4E7"/>
+  </g>
+
+  <rect x="48" y="48" width="44" height="44" rx="12" fill="url(#ticraTop)"/>
+  <rect x="102" y="48" width="106" height="44" rx="12" fill="url(#ticraTop)"/>
+  <rect x="102" y="102" width="44" height="106" rx="12" fill="url(#ticraMain)"/>
+  <rect x="48" y="164" width="44" height="44" rx="12" fill="url(#ticraTop)"/>
+  <rect x="156" y="164" width="44" height="44" rx="12" fill="url(#ticraAccent)"/>
+</svg>
