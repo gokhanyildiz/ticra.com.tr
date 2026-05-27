@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 
 import {
+  appUrl,
   type Locale,
   localizePath,
   type SiteDictionary,
   siteUrl,
 } from '@/lib/i18n';
+import { socialLinkUrls } from '@/lib/social-links';
 
 export const publicRoutes = [
   '/',
@@ -322,7 +324,7 @@ export function buildStructuredData(
         name: 'Ticra',
         url: siteUrl,
         logo: absoluteUrl('/ticra/ticra-icon.svg'),
-        sameAs: ['https://ticra.app'],
+        sameAs: [appUrl, ...socialLinkUrls],
         contactPoint: [
           {
             '@type': 'ContactPoint',

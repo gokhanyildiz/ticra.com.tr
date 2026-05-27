@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { KucoLogo } from '@/components/layout/kuco-logo';
+import { SocialLinks } from '@/components/layout/social-links';
 import {
   appUrl,
   type Locale,
@@ -47,6 +48,7 @@ export function Footer({ locale, dict }: FooterProps) {
             <p className="max-w-sm text-sm leading-6 text-white/70">
               {dict.footer.description}
             </p>
+            <SocialLinks variant="light" className="mt-1" />
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3">

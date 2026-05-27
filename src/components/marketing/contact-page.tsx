@@ -1,3 +1,4 @@
+import { SocialLinks } from '@/components/layout/social-links';
 import { ContactRequestForm } from '@/components/marketing/lead-request-form';
 import type { Locale, SiteDictionary } from '@/lib/i18n';
 
@@ -25,6 +26,7 @@ export function ContactPage({ locale, dict }: ContactPageProps) {
           <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-sm sm:text-base">
             {dict.contact.description}
           </p>
+          <SocialLinks className="mt-5 justify-center" />
         </div>
 
         <div className="relative z-10 mt-10 sm:mt-12 md:mt-16">

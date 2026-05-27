@@ -1,5 +1,6 @@
 import '../globals.css';
 
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
@@ -11,6 +12,7 @@ import { Footer } from '@/components/layout/footer';
 import { MaintenanceMode } from '@/components/layout/maintenance-mode';
 import Navbar from '@/components/layout/navbar';
 import { ThemeProvider } from '@/components/theme-provider';
+import { getGoogleMarketingConfig } from '@/lib/google-marketing';
 import {
   getDictionary,
   isLocale,
@@ -83,12 +85,22 @@ export async function generateMetadata({
     publisher: 'Ticra',
     robots: { index: true, follow: true },
     alternates: localizedAlternates('/', locale),
+    manifest: '/favicon/site.webmanifest',
     icons: {
       icon: [
-        { url: '/favicon/favicon.ico', sizes: '16x16' },
+        { url: '/favicon/favicon.ico', sizes: 'any' },
+        { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+        { url: '/favicon/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
         { url: '/ticra/ticra-icon.svg', type: 'image/svg+xml' },
       ],
       shortcut: [{ url: '/favicon/favicon.ico' }],
+      apple: [
+        {
+          url: '/favicon/apple-touch-icon.png',
+          sizes: '180x180',
+          type: 'image/png',
+        },
+      ],
     },
     openGraph: {
       title: dict.metadata.title,
@@ -125,6 +137,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
   const dict = getDictionary(lang);
   const isMaintenanceMode = isMaintenanceModeEnabled();
+  const { gtmId, standaloneGaId } = getGoogleMarketingConfig();
 
   return (
     <html
@@ -132,6 +145,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
       <body className={`${nexa.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -151,6 +165,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           )}
         </ThemeProvider>
       </body>
+      {standaloneGaId ? <GoogleAnalytics gaId={standaloneGaId} /> : null}
     </html>
   );
 }
